@@ -1,0 +1,6 @@
+2018-02-15 08:27:24	ERROR	prediction_API.R:38:1: unexpected '}'
+37:         ##put the function body here
+38: }
+    ^
+2018-02-15 08:27:24	INFO	Logging injector: The called user code had errors...
+2018-02-15 08:28:08	INFO	SERVER STARTED
