@@ -7,7 +7,7 @@ The purpose of this meta project is to create `REST API` for your machine learni
 to the end user. The project contains ready-made script to create the below APIs in `R`:
 
 - `preprocessing` 
-- `traiing`
+- `training`
 - `prediction`
 
 The user only needs to plug his original preprocessing, training and prediction logic as
