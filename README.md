@@ -1,3 +1,6 @@
+<img src="https://img.shields.io/badge/language-R-green.svg?style=flat-square" alt="made with R"> <img src="https://img.shields.io/badge/REST%20API-Plumber-blue.svg?style=flat" alt="made with plumber">
+
+
 # Sample API in R
 This meta project consists of sample script which can be used to create machine learning API in `R` which includes
 separate template for creating preprocessing, traiing and prediction API along with logging and basic error handling facility. 
