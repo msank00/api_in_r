@@ -1,7 +1,5 @@
   <img src="https://img.shields.io/badge/application-REST%20API-yellow.svg?style=flat-square" alt="application API">  <img src="https://img.shields.io/badge/language-R-green.svg?style=flat-square" alt="made with R"> <img src="https://img.shields.io/badge/package-Plumber-blue.svg?style=flat" alt="made with plumber">
 
-![image](images/rlogo.png)
-
 # Expose R Machine Learning Project as REST API
 
 This repo is a small setup to quickly refactor your `R` machine learning script in production ready format via `REST API` service.
