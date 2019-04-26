@@ -13,8 +13,10 @@
 # NOTE Preprocessing and Training functions are called as asynchronous 
 # process using the package "future" 
 #--------------------------------------------------------------------
+
 #library(futile.logger)
 #library(future)
+
 preprocessingModule <- function(callbackURL) {
 	##
 	##.... Here goes the preprocessing logic, function call, file sourcing
@@ -24,40 +26,60 @@ preprocessingModule <- function(callbackURL) {
 	# server as asynchronous function, which needs to callback the Pythia layer using
 	# the callback API. The following snippets uses the callback strategy to POST
 	# status message, api_type and timestamp (Unix ) to the Pythia Callback API
+	
+	# dummy code to simulate preprocessing
+	message("dummy preprocessing code running...")
+	for(i in 1:10)
+	{
+		Sys.sleep(1)
+		message("step: [",i,"]")
+	}
 
-	#print("m here ...")
-
-	api_type <- "preprocessing"
+	api_type <- "PREPROCESSING"
 	
 	#UNIX timestamp
-	timestamp_value <- 123456   #format(Sys.time(), "%a %d %b %Y, %H:%M:%S")  #strftime(Sys.Date(),'%B %d, %Y')
+	timestamp_value <- format(Sys.time(), "%a %d %b %Y, %H:%M:%S")  #strftime(Sys.Date(),'%B %d, %Y')
 	
 	#status message depending upon status of preprocessing OK or NOTOK
-	status_message <- "OK"
+	status_message <- "COMPLETED SUCCESSFULLY"
 
+	message("preprocessing completed...")
+	message("sending status to callbackURL...")
 	postStatus(callbackURL,api_type,status_message,timestamp_value)
 
     return()
 }
 
 trainingModule <- function(callbackURL) {
-	##
+	
+	##===============================================================
 	##.... Here goes the traning logic, function call, file sourcing
-	##
+	##===============================================================
+	message("dummy training code running...")
+	for(i in 1:10)
+	{
+		Sys.sleep(1)
+		message("step: [",i,"]")
+	}
 
+	# ===============================================================================
 	# Training can takes several minutes, so We run this training module in 
 	# server as asynchronous function, which needs to callback the Pythia layer using
 	# the callback API. The following snippets uses the callback strategy to POST
 	# status message, api_type and timestamp (Unix ) to the Pythia Callback API
-
-	api_type <- "traning"
+	#================================================================================
+	
+	api_type <- "TRAINING"
 	
 	#UNIX timestamp
-	timestamp_value <- as.character(as.integer(as.POSIXct(Sys.time())))   #format(Sys.time(), "%a %d %b %Y, %H:%M:%S")  #strftime(Sys.Date(),'%B %d, %Y')
+	#format(Sys.time(), "%a %d %b %Y, %H:%M:%S")  #strftime(Sys.Date(),'%B %d, %Y')
+	timestamp_value <- format(Sys.time(), "%a %d %b %Y, %H:%M:%S") 
 	
 	#status message depending upon status of preprocessing OK or NOTOK
-	status_message <- "OK"
+	status_message <- "COMPLETED SUCCESSFULLY"
 
+	message("training completed...")
+	message("sending status to callbackURL...")
 	postStatus(callbackURL,api_type,status_message,timestamp_value)
 
     return()
@@ -67,22 +89,14 @@ trainingModule <- function(callbackURL) {
 postStatus <- function(callbackURL,api_type,status_message,timestamp_value)
 {
 	url <- callbackURL
-	
-	body <- list(type=api_type,status=status_message,timestamp=timestamp_value)
-	
+	body <- list(type=api_type,status=status_message,timestamp=timestamp_value)	
 	flog.info("sending POST to callback URL")
-	print(url)
-	print(status_message)
-	print(timestamp_value)
-
 	r.result<-POST(url, body = body,encode="form")
-	print("message from callBack URL")
-	print(r.result)
-	print(r.result$content)
+	flog.info(r.result)
+	flog.info(r.result$content)
 	flog.info("Callback Successful...")
 }
 
-# ----------------------------------------------------------------- #
 
 #' @filter log
 function(req){
@@ -104,10 +118,14 @@ preprocessingUtility <- function(callbackURL){
 	# This is an utility function for creating the preprocessing api
 	flog.info("PREPROCESSING REQUEST: +++++RECEIVED+++++")
 
-	#print("m here")
 	# calling the preprocessing module as Asynchronous call with "future"
-	f<-future(preprocessingModule(callbackURL))
-	
+	f<-future(preprocessingModule(callbackURL)) %plan% multiprocess
+
+	# till Asynchronous call finishes, a ">" will be printed
+	while (!resolved(f)){cat("...")}
+	cat("\n")
+	value(f)
+
 	# sending an immediate status to the client
 	status <- data.frame(list("PREPROCESSING"="STARTED"))
 	return(status)
@@ -118,14 +136,14 @@ trainingUtility <- function(callbackURL){
   	
 	# This is an utility function for creating the preprocessing api
 	  flog.info("TRAINING REQUEST: +++++RECEIVED+++++")
-	  t <- future(trainingModule(callbackURL))
-	  
-	  #flog.info("TRAINING REQUEST: -----SERVED-----")
-	  
+	  t <- future(trainingModule(callbackURL)) %plan% multiprocess 
+		
+	  # till Asynchronous call finishes, a ">" will be printed
+	  while (!resolved(t)){cat("...")}
+	  cat("\n")
+	  value(t)
+
 	  status <- data.frame(list("TRAINING"="STARTED"))
-	  
 	  return(status)
 }
 
-#preprocessingUtility("http://scl000006038.sccloud.swissre.com:5042/notify")
-#trainModelUtility()

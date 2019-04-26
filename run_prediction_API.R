@@ -23,7 +23,8 @@ tryCatch(
 			layout <- layout.format('~t\t~l\t~m')
             flog.layout(layout)
             #flog.layout(layout, name='/var/log/pythia/r_marine.log')
-            flog.appender(appender.file('r_API_prediction_server.log'))
+            flog.appender(appender.file('log/r_API_prediction_server.log'))
+			
 
 			r <- plumb("prediction_API.R")
 			r$run(host='0.0.0.0',port=portno) #you can hardcode the port number if you wish	

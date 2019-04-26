@@ -19,7 +19,7 @@ library(httr)
 library(stringr)
 #library(lubridate)
 
-plan(multiprocess)
+# plan(multiprocess)
 
 tryCatch(
 	withCallingHandlers
@@ -31,7 +31,7 @@ tryCatch(
 			flog.threshold(args[2])
 			layout <- layout.format('~t\t~l\t~m')
 			flog.layout(layout)
-			flog.appender(appender.file('r_API_training_server.log'))
+			flog.appender(appender.file('log/r_API_training_server.log'))
 			r <- plumb("train_model_API.R")
 			r$run(host = '0.0.0.0',port = portno)
 		

@@ -61,16 +61,3 @@ predictUtil <- function(input){
 }
 flog.info('SERVER STARTED')
 
-#########  ==============     TEMPORARY, just for testing  ================    #########
-# # CRASHES THE COSTING because of critical error ...
-
-# UID <- c(1, 2, 3)
-# AGE <- c(-15, -25,15)
-
-#input <- data.frame(UID = UID,AGE = AGE)
- 
-#print("input")
-#print(input)
-
-#output <- predictUtil(input = input)
-#print(output)

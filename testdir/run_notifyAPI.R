@@ -19,7 +19,7 @@ tryCatch(
 		{
 			# call your unchanged code by sourcing it!
 			portno <- as.numeric(args[1])
-			r <- plumb("dummyAPI.R")
+			r <- plumb("notifyAPI.R")
 			r$run(port = portno)
 		
 		},  
