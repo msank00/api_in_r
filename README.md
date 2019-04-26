@@ -1,4 +1,4 @@
-<img src="https://img.shields.io/badge/language-R-green.svg?style=flat-square" alt="made with R"> <img src="https://img.shields.io/badge/REST%20API-Plumber-blue.svg?style=flat" alt="made with plumber">
+  <img src="https://img.shields.io/badge/application-REST20%API-yellow.svg?style=flat-square" alt="application API">  <img src="https://img.shields.io/badge/language-R-green.svg?style=flat-square" alt="made with R"> <img src="https://img.shields.io/badge/package-Plumber-blue.svg?style=flat" alt="made with plumber">
 
 
 # Sample API in R
