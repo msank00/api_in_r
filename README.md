@@ -2,8 +2,22 @@
 
 
 # Sample API in R
-This meta project consists of sample script which can be used to create machine learning API in `R` which includes
-separate template for creating preprocessing, traiing and prediction API along with logging and basic error handling facility. 
+
+This repo is a small setup to quickly refactor your `R` machine learning script in production ready format via `REST API` service.
+The purpose of this meta project is to create `REST API` for your machine learning project in `R` and expose your model
+to the end user. The project contains ready-made script to create the below APIs in `R`:
+
+- `preprocessing` 
+- `traiing`
+- `prediction`
+
+The user only needs to plug his original preprocessing, training and prediction logic as
+function. And then call the respective modules from the respective API functions. Currently to simulate the above three tasks, dummy
+code snippet is used, which the user will replace with his appropriate code. 
+ 
+The code also implements basic `logging` facility for debugging purpose.
+
+
 
 # Package Information
 
